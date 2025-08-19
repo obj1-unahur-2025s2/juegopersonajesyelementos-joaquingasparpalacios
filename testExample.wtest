@@ -1,9 +1,90 @@
-import example.pepita
+//quedaria por ver como se podria hacer funcional, quiza dividiendo en subtareas y separando los comandos de encontrar y usar/atacar a algun elemento...
 
-describe "group of tests for pepita" {
-
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+object luisa {
+  var personajeActivo = null
+  method asignarPersonaje(personaje) {
+    personajeActivo = personaje
   }
-
+  method aparece(elemento) {
+    personajeActivo.encontrarElemento(elemento)
+  }
+}
+object floki { 
+  var armaEnUso = null
+  method usarArma(arma) {
+    armaEnUso = arma
+  }
+  method encontrarElemento(elemento) {
+    elemento.recibeAtaque(armaEnUso)
+    armaEnUso.descargar()
+  }
+}
+object mario {
+  var valorRecolectado = 0
+  var ultimoVisitado = null
+  method esFeliz() = self.valorRecolectado() > 50 || ultimoVisitado.altura() > 10 
+  method valorRecolectado() = valorRecolectado 
+  method ultimoVisitado() = ultimoVisitado 
+  method aumentarValor(elemento) {
+    valorRecolectado = valorRecolectado + elemento.valorOtorgado()
+  }
+  method encontrarElemento(elemento) {
+    self.aumentarValor(elemento)
+    self.ultimoVisitado = elemento
+  }
+  method trabajarSobre(elemento) {
+    elemento.trabajo()
+  }
+}
+object ballesta {
+  var municion = 10
+  method potencia() = 4
+  method descargar() {
+    municion = municion -1
+  }
+}
+object jabalina {
+  var municion = 1
+  method potencia() = 30 
+  method descargar() {
+    municion = municion -1
+  }
+}
+object castillo {
+  var nivelDeDefensa = 150
+  method altura() = 20
+  method nivelDeDefensa() = nivelDeDefensa
+  method recibeAtaque(arma) {
+    nivelDeDefensa = nivelDeDefensa - arma.potencia()
+  }
+  method valorOtorgado() = nivelDeDefensa / 5 
+  method trabajo() {
+    nivelDeDefensa = nivelDeDefensa + 20 //no se como aplicaria aca el "min", aplicaria un "max(200)" en el nivel por asi decir
+  }
+}
+object aurora {
+  var estaViva = true
+  var puntosDeVida = 10
+  method altura() = 1
+  method estaViva() = estaViva
+  method recibeAtaque(arma) {
+    puntosDeVida = puntosDeVida - arma.potencia() //literalmente no se como encarar esto sin un IF
+    //if arma.potencia() >= 10: self.matar()
+    //method matar(){estaViva = False}
+  }
+  method valorOtorgado() = 15
+  method trabajo() {
+    print("no le pasa nada")
+  }
+}
+object tipa {
+  var altura = 8
+  method altura() = altura
+  method recibeAtaque(arma) {
+    print("no le pasa nada") // manda un mensaje de que no le pasa nada
+  }
+  method valorOtorgado() = altura * 2
+  method trabajo() {
+    altura = altura + 1
+  } 
 }
