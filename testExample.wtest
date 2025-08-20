@@ -19,6 +19,7 @@ object floki {
     armaEnUso.descargar()
   }
 }
+
 object mario {
   var valorRecolectado = 0
   var ultimoVisitado = null
